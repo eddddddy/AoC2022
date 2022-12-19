@@ -80,17 +80,20 @@ def part2(jets):
     # jet index
     j = 0
 
-    # for i in range(5 * len(jets)):
-    for i in range(1000000000):
+    # input-specific
+    init_rock, init_height = 1728, 2711
+    period, gain = 1735, 2720
+
+    q = (1000000000000 - init_rock) // period
+    r = (1000000000000 - init_rock) % period
+
+    num_rocks = init_rock + r
+
+    for i in range(num_rocks):
         rock_pos = rocks[i % 5]
         rock_pos = [(x + 2, y + height + 4) for (x, y) in rock_pos]
 
         while True:
-
-            # if i > 0 and i % 5 == 0 and j == 0:
-            #     print(i)
-            #     print(height)
-            #     return
 
             if jets[j] == '<':
                 new_rock_pos = [(point[0] - 1, point[1]) for point in rock_pos]
@@ -111,8 +114,7 @@ def part2(jets):
 
             rock_pos = new_rock_pos
 
-    # print(i)
-    # return height
+    return height + q * gain
 
 
 def main():
